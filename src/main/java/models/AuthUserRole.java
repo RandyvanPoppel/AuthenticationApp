@@ -1,7 +1,6 @@
 package models;
 
-
-public enum UserRole {
+public enum AuthUserRole {
     USER,
     ADMIN
 }
