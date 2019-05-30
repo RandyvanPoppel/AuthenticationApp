@@ -2,13 +2,14 @@ package models;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @NamedQueries(value = {
         @NamedQuery(name = "authUser.getByUsername", query = "SELECT a FROM AuthUser a WHERE a.username = :username"),
         @NamedQuery(name = "authUser.getByCredentials", query = "SELECT a FROM AuthUser a WHERE a.username = :username AND a.password = :hashedPassword"),
 })
 @Entity(name = "AuthUser")
-public class AuthUser {
+public class AuthUser implements Serializable {
 
     @Id
     @GeneratedValue

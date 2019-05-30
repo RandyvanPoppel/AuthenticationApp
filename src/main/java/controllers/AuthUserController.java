@@ -5,6 +5,7 @@ import services.AuthUserService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -42,5 +43,12 @@ public class AuthUserController {
                     .type(MediaType.APPLICATION_JSON).build();
         }
         return Response.status(Response.Status.FORBIDDEN).build();
+    }
+
+    @GET
+    @Path("validateToken")
+    public boolean validateToken(ContainerRequestContext requestContext) {
+
+        return false;
     }
 }

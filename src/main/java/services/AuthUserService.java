@@ -24,9 +24,8 @@ public class AuthUserService {
         AuthUser authUser = authUserDAO.findAuthUserByCredentials(credentials.get("username"), credentials.get("password"));
         if (authUser != null)
         {
-            String jsonWebToken = authenticationService.createJWT(String.valueOf(authUser.getId()), authUser.getUsername());
+            String jsonWebToken = authenticationService.createJWT(authUser);
             authUser.setToken(jsonWebToken);
-            // TODO: Create webtoken in DB
             return authUser;
         }
         return null;
@@ -38,8 +37,7 @@ public class AuthUserService {
         {
             AuthUser authUser = new AuthUser(credentials.get("username"), credentials.get("password"), AuthUserRole.USER);
             authUserDAO.addAuthUser(authUser);
-            String jsonWebToken = authenticationService.createJWT(String.valueOf(authUser.getId()), authUser.getUsername());
-            // TODO: Create webtoken in DB
+            String jsonWebToken = authenticationService.createJWT(authUser);
             authUser.setToken(jsonWebToken);
             return authUser;
         }
