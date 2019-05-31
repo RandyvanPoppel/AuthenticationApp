@@ -28,8 +28,8 @@ public class AuthUserController {
     public Response login(ContainerRequestContext requestContext,
                           @Context UriInfo uriInfo) {
         AuthUser returnUser = authUserService.login(requestContext);
-        returnUser.addLink(HATEOAS.createLink(AuthUserController.class, uriInfo, "self", "login", RequestMethod.POST, new String[]{"Authorization: 'user:password'"}, new String[]{}));
-        returnUser.addLink(HATEOAS.createLink(AuthUserController.class, uriInfo, "register", "register", RequestMethod.POST, new String[]{"Authorization: 'user:password'"}, new String[]{}));
+        returnUser.addLink(HATEOAS.createLink(AuthUserController.class, uriInfo, "self", "login", RequestMethod.POST, new String[]{"Authorization: user:password"}, new String[]{}));
+        returnUser.addLink(HATEOAS.createLink(AuthUserController.class, uriInfo, "register", "register", RequestMethod.POST, new String[]{"Authorization: user:password"}, new String[]{}));
         if (returnUser != null) {
             return Response.status(Response.Status.OK)
                     .entity(returnUser)
@@ -43,8 +43,8 @@ public class AuthUserController {
     public Response register(ContainerRequestContext requestContext,
                              @Context UriInfo uriInfo) {
         AuthUser returnUser = authUserService.register(requestContext);
-        returnUser.addLink(HATEOAS.createLink(AuthUserController.class, uriInfo, "self", "register", RequestMethod.POST, new String[]{"Authorization: 'user:password'"}, new String[]{}));
-        returnUser.addLink(HATEOAS.createLink(AuthUserController.class, uriInfo, "login", "login", RequestMethod.POST, new String[]{"Authorization: 'user:password'"}, new String[]{}));
+        returnUser.addLink(HATEOAS.createLink(AuthUserController.class, uriInfo, "self", "register", RequestMethod.POST, new String[]{"Authorization: user:password"}, new String[]{}));
+        returnUser.addLink(HATEOAS.createLink(AuthUserController.class, uriInfo, "login", "login", RequestMethod.POST, new String[]{"Authorization: user:password"}, new String[]{}));
         if (returnUser != null) {
             return Response.status(Response.Status.OK)
                     .entity(returnUser)
