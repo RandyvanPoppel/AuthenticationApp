@@ -1,10 +1,13 @@
 package models;
 
+import models.hateoas.Link;
 import tools.HashTool;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @NamedQueries(value = {
         @NamedQuery(name = "authUser.getByUsername", query = "SELECT a FROM AuthUser a WHERE a.username = :username"),
@@ -24,6 +27,8 @@ public class AuthUser implements Serializable {
     private AuthUserRole authUserRole;
     @Transient
     private String token;
+    @Transient
+    private List<Link> links = new ArrayList<>();
 
     public AuthUser() {}
 
@@ -67,5 +72,18 @@ public class AuthUser implements Serializable {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public List<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(List<Link> links) {
+        this.links = links;
+    }
+
+    public void addLink(Link link)
+    {
+        links.add(link);
     }
 }

@@ -1,12 +1,16 @@
 package controllers;
 
+import controllers.hateoas.HATEOAS;
 import models.AuthUser;
+import models.hateoas.RequestMethod;
 import services.JsonWebTokenService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
 
 @Stateless
 @Path("jsonwebtoken")
@@ -19,8 +23,14 @@ public class JsonWebTokenController {
 
     @GET
     @Path("validate")
-    public AuthUser getAuthUserByValidJsonWebTokenString(@QueryParam("tokenString") final String tokenString)
+    public AuthUser getAuthUserByValidJsonWebTokenString(@QueryParam("tokenString") final String tokenString,
+                                                         @Context UriInfo uriInfo)
     {
-        return jsonWebTokenService.getAuthUserByValidJsonWebTokenString(tokenString);
+        AuthUser authUser = jsonWebTokenService.getAuthUserByValidJsonWebTokenString(tokenString);
+        if (authUser != null)
+        {
+            authUser.addLink(HATEOAS.createLink(JsonWebTokenController.class, uriInfo, "self", "validate", RequestMethod.GET, new String[]{}, new String[]{"tokenString"}));
+        }
+        return authUser;
     }
 }
