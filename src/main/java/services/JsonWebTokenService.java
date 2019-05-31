@@ -20,6 +20,10 @@ public class JsonWebTokenService {
     public AuthUser getAuthUserByValidJsonWebTokenString(String tokenString)
     {
         JsonWebToken validJsonWebToken = jsonWebTokenDAO.findValidJsonWebTokenByTokenString(tokenString);
-        return validJsonWebToken.getAuthUser();
+        if (validJsonWebToken != null)
+        {
+            return validJsonWebToken.getAuthUser();
+        }
+        return null;
     }
 }

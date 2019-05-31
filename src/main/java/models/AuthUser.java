@@ -15,6 +15,7 @@ public class AuthUser implements Serializable {
     @GeneratedValue
     private long id;
 
+    @Column(unique = true)
     private String username;
     @JsonbTransient
     private String password;
