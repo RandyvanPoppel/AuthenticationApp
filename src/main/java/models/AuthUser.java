@@ -1,5 +1,7 @@
 package models;
 
+import tools.HashTool;
+
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,7 +29,7 @@ public class AuthUser implements Serializable {
 
     public AuthUser(String username, String password, AuthUserRole authUserRole) {
         this.username = username;
-        this.password = password;
+        this.password = HashTool.getHashedString(password);
         this.authUserRole = authUserRole;
     }
 

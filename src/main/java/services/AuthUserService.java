@@ -3,6 +3,7 @@ package services;
 import dao.blueprint.IAuthUserDAO;
 import models.AuthUser;
 import models.AuthUserRole;
+import tools.HashTool;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -21,7 +22,7 @@ public class AuthUserService {
 
     public AuthUser login(ContainerRequestContext requestContext) {
         HashMap<String, String> credentials = getCredentials(requestContext);
-        AuthUser authUser = authUserDAO.findAuthUserByCredentials(credentials.get("username"), credentials.get("password"));
+        AuthUser authUser = authUserDAO.findAuthUserByCredentials(credentials.get("username"), HashTool.getHashedString(credentials.get("password")));
         if (authUser != null)
         {
             String jsonWebToken = authenticationService.createJWT(authUser);
