@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NamedQueries(value = {
-        @NamedQuery(name = "authUser.getByUsername", query = "SELECT a FROM AuthUser a WHERE a.username = :username"),
-        @NamedQuery(name = "authUser.getByCredentials", query = "SELECT a FROM AuthUser a WHERE a.username = :username AND a.password = :hashedPassword"),
+        @NamedQuery(name = "authUser.getByUsername", query = "SELECT a FROM AuthUser a WHERE a.userName = :username"),
+        @NamedQuery(name = "authUser.getByCredentials", query = "SELECT a FROM AuthUser a WHERE a.userName = :username AND a.password = :hashedPassword"),
 })
 @Entity(name = "AuthUser")
 public class AuthUser implements Serializable {
@@ -21,7 +21,7 @@ public class AuthUser implements Serializable {
     private long id;
 
     @Column(unique = true)
-    private String username;
+    private String userName;
     @JsonbTransient
     private String password;
     private AuthUserRole authUserRole;
@@ -32,8 +32,8 @@ public class AuthUser implements Serializable {
 
     public AuthUser() {}
 
-    public AuthUser(String username, String password, AuthUserRole authUserRole) {
-        this.username = username;
+    public AuthUser(String userName, String password, AuthUserRole authUserRole) {
+        this.userName = userName;
         this.password = HashTool.getHashedString(password);
         this.authUserRole = authUserRole;
     }
@@ -42,12 +42,12 @@ public class AuthUser implements Serializable {
         return id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String username) {
+        this.userName = username;
     }
 
     public String getPassword() {

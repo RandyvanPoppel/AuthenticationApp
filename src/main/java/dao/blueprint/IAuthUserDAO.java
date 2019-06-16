@@ -10,4 +10,6 @@ public interface IAuthUserDAO {
     AuthUser findAuthUserByUsername(String username);
 
     AuthUser findAuthUserByCredentials(String username, String hashedPassword);
+
+    String getUserRole(AuthUser authUser);
 }

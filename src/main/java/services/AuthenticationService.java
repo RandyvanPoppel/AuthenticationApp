@@ -1,11 +1,9 @@
 package services;
 
-import dao.blueprint.IJsonWebTokenDAO;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import models.AuthUser;
-import models.JsonWebToken;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.ejb.Stateless;
@@ -43,7 +41,7 @@ public class AuthenticationService {
         //Let's set the JWT Claims
         JwtBuilder builder = Jwts.builder().setId(String.valueOf(authUser.getId()))
                 .setIssuedAt(now)
-                .setSubject(authUser.getUsername())
+                .setSubject(authUser.getUserName())
                 .signWith(signatureAlgorithm, signingKey);
 
         //if it has been specified, let's add the expiration

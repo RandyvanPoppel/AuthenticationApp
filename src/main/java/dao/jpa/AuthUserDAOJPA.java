@@ -3,6 +3,7 @@ package dao.jpa;
 import dao.blueprint.IAuthUserDAO;
 import dao.jpa.config.JPA;
 import models.AuthUser;
+import tools.HashTool;
 
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
@@ -36,8 +37,7 @@ public class AuthUserDAOJPA implements IAuthUserDAO {
         TypedQuery<AuthUser> query = em.createNamedQuery("authUser.getByUsername", AuthUser.class);
         query.setParameter("username", username);
         List<AuthUser> results = query.getResultList();
-        if (results.size() > 0)
-        {
+        if (results.size() > 0) {
             return results.get(0);
         }
         return null;
@@ -49,9 +49,22 @@ public class AuthUserDAOJPA implements IAuthUserDAO {
         query.setParameter("username", username);
         query.setParameter("hashedPassword", hashedPassword);
         List<AuthUser> results = query.getResultList();
-        if (results.size() > 0)
-        {
+        if (results.size() > 0) {
             return results.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public String getUserRole(AuthUser authUser) {
+        AuthUser authenticatedAuthUser = findAuthUserByCredentials(authUser.getUserName(), HashTool.getHashedString(authUser.getPassword()));
+        if (authenticatedAuthUser != null) {
+            switch (authenticatedAuthUser.getAuthUserRole()) {
+                case USER:
+                    return "USER";
+                case ADMIN:
+                    return "ADMIN";
+            }
         }
         return null;
     }
