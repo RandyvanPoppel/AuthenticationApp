@@ -24,8 +24,8 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input type="submit" value="Login"></input>
-                        <input type="reset" value="Reset"></input>
+                        <input type="submit" value="Login"/>
+                        <input type="reset" value="Reset"/>
                     </td>
                 </tr>
             </table>

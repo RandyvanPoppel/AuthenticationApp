@@ -25,4 +25,13 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <display-name>RemoveAuthUserServlet</display-name>
+        <servlet-name>RemoveAuthUserServlet</servlet-name>
+        <servlet-class>servlets.RemoveAuthUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RemoveAuthUserServlet</servlet-name>
+        <url-pattern>/RemoveAuthUserServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

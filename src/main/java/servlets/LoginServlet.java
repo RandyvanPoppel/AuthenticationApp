@@ -49,13 +49,14 @@ public class LoginServlet extends HttpServlet {
 
                         session.setAttribute("Admin", userName); //setting session attribute
                         request.setAttribute("userName", userName);
+                        request.setAttribute("users", authUserDAO.getAll());
 
                         request.getRequestDispatcher("/JSP/Admin.jsp").forward(request, response);
                         break;
                 }
             } else {
-                System.out.println("Error message = " + userValidate);
-                request.setAttribute("errMessage", userValidate);
+                System.out.println("No AuthUser found with username: " + userName + " and given password");
+                request.setAttribute("errMessage", "No AuthUser found with username: " + userName + " and given password");
 
                 request.getRequestDispatcher("/JSP/Login.jsp").forward(request, response);
             }

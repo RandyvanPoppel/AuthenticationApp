@@ -9,7 +9,9 @@ import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 @JPA
@@ -67,5 +69,16 @@ public class AuthUserDAOJPA implements IAuthUserDAO {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<AuthUser> getAll() {
+        Query query = em.createQuery("SELECT a FROM AuthUser a");
+        return new ArrayList<>(query.getResultList());
+    }
+
+    @Override
+    public void removeAuthUser(AuthUser authUser) {
+        em.remove(em.merge(authUser));
     }
 }
